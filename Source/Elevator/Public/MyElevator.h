@@ -15,36 +15,41 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable, Category = "Elevator")
-	void ActivateElevator();
+	UPROPERTY(VisibleAnywhere, Category = "Elevator");
+	FVector InitialPosition;
 
-	UFUNCTION(BlueprintCallable, Category = "Elevator")
-	void DeactivateElevator();
+	UPROPERTY(VisibleAnywhere, Category = "Elevator");
+	FVector FinalPosition;
 
+	UPROPERTY(VisibleAnywhere, Category = "Elevator");
+	float SavedTimelinePosition;
+	
 	UPROPERTY(EditAnywhere, Category = "Elevator")
 	float MovementHeight = 400.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Elevator")
 	float MovementSpeed = 1.0f;
 
-protected:
-	virtual void BeginPlay() override;
-
-private:
+	UPROPERTY(VisibleAnywhere, Category = "Elevator")
 	FTimeline ElevatorTimeline;
-	UPROPERTY(EditAnywhere, Category = "Elevator")
-	UCurveFloat* ElevatorCurve
-
-	;
 	
+	UPROPERTY(EditAnywhere, Category = "Elevator")
+	UCurveFloat* ElevatorCurve;
 
 	UPROPERTY(VisibleAnywhere, Category = "Elevator")
 	bool bIsMovingUp;
 
 	UFUNCTION()
-	void HandleElevatorMovement(float Value);
+	void ActivateElevator();
 
-	FVector InitialPosition;
-	FVector FinalPosition;
-	float SavedTimelinePosition;
+	UFUNCTION()
+	void DeactivateElevator();
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	UFUNCTION()
+	void HandleElevatorMovement(float Value);
+	
 };
